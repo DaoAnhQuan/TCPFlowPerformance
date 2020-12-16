@@ -1,0 +1,20 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+
+
+my @command = qw{mm-delay 50 mm-link UPLINK DOWNLINK --downlink-queue=droptail --downlink-queue-args=bytes=5000000 --uplink-queue=droptail --uplink-queue-args=bytes=5000000};
+
+# for the contest, we will send data over Verizon's downlink
+# (datagrump sender's uplink)
+die unless $command[ 3 ] eq "UPLINK";
+$command[ 3 ] = qq{12Mbps.up};
+
+die unless $command[ 4 ] eq "DOWNLINK";
+$command[ 4 ] = qq{12Mbps.down};
+
+system @command;
+
+print "\n";
+print qq{ done.\n\n};
